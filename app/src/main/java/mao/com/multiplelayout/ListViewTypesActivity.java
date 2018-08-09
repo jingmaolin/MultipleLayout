@@ -2,6 +2,7 @@ package mao.com.multiplelayout;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.Gravity;
@@ -20,11 +21,7 @@ import mao.com.multiplelayout.adapter.SimpleListViewAdapter;
 /**
  * Description ：ListView多布局的简单实现
  * Created by jingmaolin on 2018/8/9.
- * Job number：600029
  * Phone ：13342446520
- * Email：jingmaolin@syswin.com
- * Person in charge ： jingmaolin
- * Leader：wangyue
  */
 
 public class ListViewTypesActivity extends Activity {
@@ -39,23 +36,7 @@ public class ListViewTypesActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listview_types);
         initView();
-    }
-
-    private void addHeader() {
-        TextView textView = new TextView(this);
-        textView.setText("添加头部");
-        textView.setGravity(Gravity.CENTER);
-        AbsListView.LayoutParams params = new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.WRAP_CONTENT);
-        textView.setLayoutParams(params);
-
-        TextView textView2 = new TextView(this);
-        textView2.setText("添加头部2");
-        textView2.setGravity(Gravity.CENTER);
-        AbsListView.LayoutParams params2 = new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.WRAP_CONTENT);
-        textView2.setLayoutParams(params2);
-
-        mListView.addHeaderView(textView);
-        mListView.addHeaderView(textView2);
+        judgeFocus();
     }
 
     private void initView() {
@@ -89,6 +70,23 @@ public class ListViewTypesActivity extends Activity {
         });
     }
 
+    private void addHeader() {
+        TextView textView = new TextView(this);
+        textView.setText("添加头部");
+        textView.setGravity(Gravity.CENTER);
+        AbsListView.LayoutParams params = new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.WRAP_CONTENT);
+        textView.setLayoutParams(params);
+
+        TextView textView2 = new TextView(this);
+        textView2.setText("添加头部2");
+        textView2.setGravity(Gravity.CENTER);
+        AbsListView.LayoutParams params2 = new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.WRAP_CONTENT);
+        textView2.setLayoutParams(params2);
+
+        mListView.addHeaderView(textView);
+        mListView.addHeaderView(textView2);
+    }
+
     private List<String> initData() {
         List<String> list = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
@@ -101,5 +99,23 @@ public class ListViewTypesActivity extends Activity {
             }
         }
         return list;
+    }
+
+    private void judgeFocus() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    View rootView = getWindow().getDecorView();
+                    Log.d(TAG, "current focus is : " + rootView.findFocus().getClass().getSimpleName());
+                }
+
+            }
+        }).start();
     }
 }

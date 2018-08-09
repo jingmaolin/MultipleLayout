@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -14,11 +16,7 @@ import mao.com.multiplelayout.R;
 /**
  * Description ：普通的ListView 多布局适配器
  * Created by jingmaolin on 2018/8/9.
- * Job number：600029
  * Phone ：13342446520
- * Email：jingmaolin@syswin.com
- * Person in charge ： jingmaolin
- * Leader：wangyue
  */
 
 public class SimpleListViewAdapter extends BaseAdapter {
@@ -99,6 +97,20 @@ public class SimpleListViewAdapter extends BaseAdapter {
         switch (getItemViewType(position)) {
             case HEAD_VIEW:
                 textView = convertView.findViewById(R.id.head_textView);
+                ImageView imageView = convertView.findViewById(R.id.imageView);
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.d(TAG, "onClick: " + "this view is clicked");
+                    }
+                });
+                Button button = convertView.findViewById(R.id.button);
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.d(TAG, "onClick: " + "this button is clicked");
+                    }
+                });
                 break;
             case MIDDLE_VIEW:
                 textView = convertView.findViewById(R.id.middle_textView);
@@ -109,5 +121,13 @@ public class SimpleListViewAdapter extends BaseAdapter {
         }
         textView.setText(mList.get(position));
         return convertView;
+    }
+
+    @Override
+    public boolean isEnabled(int position) {
+        if (position == 5) {
+            return false;
+        }
+        return super.isEnabled(position);
     }
 }
