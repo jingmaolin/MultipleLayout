@@ -29,6 +29,11 @@ public class SimpleRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
     private final int MIDDLE_VIEW = 1;
     private final int BOTTOM_VIEW = 2;
 
+    private int createHolderCount = 0;
+    private int createHeadHolder = 0;
+    private int createMiddleHolder = 0;
+    private int createBottomHolder = 0;
+
     private static final String TAG = "SimpleRecyclerViewAdapt";
 
     public SimpleRecyclerViewAdapter(Context context, List<String> list) {
@@ -49,11 +54,15 @@ public class SimpleRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Log.d(TAG, "onCreateViewHolder: " + (++createHolderCount));
         if (viewType == HEAD_VIEW) {
+            Log.d(TAG, "createHeadHolder: " + (++createHeadHolder));
             return new HeadViewHolder(mInflater.inflate(R.layout.item_list_head, parent, false));
         } else if (viewType == BOTTOM_VIEW) {
+            Log.d(TAG, "createBottomHolder: " + (++createBottomHolder));
             return new BottomHolder(mInflater.inflate(R.layout.item_list_bottom, parent, false));
         } else {
+            Log.d(TAG, "createMiddleHolder: " + (++createMiddleHolder));
             return new MiddleHolder(mInflater.inflate(R.layout.item_list_middle, parent, false));
         }
     }
@@ -100,6 +109,15 @@ public class SimpleRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
             imageView = itemView.findViewById(R.id.imageView);
             textView = itemView.findViewById(R.id.head_textView);
         }
+    }
+
+    public List<String> getList() {
+        return mList;
+    }
+
+    public void setList(List<String> mList) {
+        this.mList = mList;
+        notifyDataSetChanged();
     }
 
     public static class MiddleHolder extends RecyclerView.ViewHolder {

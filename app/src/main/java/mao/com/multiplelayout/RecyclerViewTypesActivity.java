@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -23,6 +22,7 @@ import mao.com.multiplelayout.adapter.SimpleRecyclerViewAdapter;
 
 public class RecyclerViewTypesActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
+    private SimpleRecyclerViewAdapter mRecyclerViewAdapter;
     private LinearLayout mLinearLayout;
 
     @Override
@@ -37,8 +37,8 @@ public class RecyclerViewTypesActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.recyclerView);
         mLinearLayout = findViewById(R.id.linearLayout);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayout.VERTICAL, false));
-        SimpleRecyclerViewAdapter recyclerViewAdapter = new SimpleRecyclerViewAdapter(this, initData());
-        mRecyclerView.setAdapter(recyclerViewAdapter);
+        mRecyclerViewAdapter = new SimpleRecyclerViewAdapter(this, initData());
+        mRecyclerView.setAdapter(mRecyclerViewAdapter);
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -55,6 +55,21 @@ public class RecyclerViewTypesActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void changeData(View v) {
+        if (mRecyclerViewAdapter != null) {
+            List<String> list = mRecyclerViewAdapter.getList();
+            if (list != null && list.size() == 0) {
+                return;
+            }
+            int size = list.size();
+            for (int i = 0; i < size; i++) {
+                String s = list.get(i) + ";set";
+                list.set(i, s);
+            }
+            mRecyclerViewAdapter.setList(list);
+        }
     }
 
     private List<String> initData() {

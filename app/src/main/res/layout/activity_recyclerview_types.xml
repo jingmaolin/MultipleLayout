@@ -3,10 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/re_button"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:onClick="changeData"
+        android:text="改变数据集的值" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_gravity="top"
+        android:layout_marginTop="40dp">
 
     </android.support.v7.widget.RecyclerView>
 
@@ -14,6 +23,8 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        android:layout_gravity="top"
+        android:layout_marginTop="40dp"
         android:background="#FFFFFF"
         android:gravity="center"
         android:orientation="horizontal"
