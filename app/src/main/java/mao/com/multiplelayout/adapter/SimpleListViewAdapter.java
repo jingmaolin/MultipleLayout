@@ -104,7 +104,7 @@ public class SimpleListViewAdapter extends BaseAdapter {
                         Log.d(TAG, "onClick: " + "this view is clicked");
                     }
                 });
-                Button button = convertView.findViewById(R.id.button);
+                Button button = convertView.findViewById(R.id.head_button);
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
